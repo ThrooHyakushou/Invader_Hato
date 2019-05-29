@@ -1,5 +1,5 @@
 # Invader_Hato
-Invadergame using JS an animals
+Invadergame using JS and animals
 
 ##Description<br>
 The pigeon is attacked by three dogs and two cats with dots, 
@@ -7,7 +7,7 @@ shoot back with space-key and evade enemy attacks by moving right="l" and left="
 
 ###Requirements<br>
 Chrome<br>
-Cookies enabled <br>
+Please enable Cookies <br>
 
 ###<br>Written with JS and tested out on Chrome.
 
