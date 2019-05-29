@@ -47,10 +47,6 @@
     <p id="start" style="position:absolute; bottom: 300px; left:1px; font-size:150px; color:greenyellow;display:none; ">
         Start!
     </p>
-    <p id="clear"
-        style="font-size:150px;position:absoulte; top: 1px; left:300px; color:rgb(250, 234, 15); display:none;">
-        Clear!!!
-    </p>
     <p id="nextStage" style="font-size:150px; position:absolute; top: 1px; right:1px; color:black;display:none; "> Next
         Stage!! </p>
     <p id="gameOver" style="font-size:150px; position:absolute; top: 1px; right:1px;  color:red ;display:none; ">
@@ -88,17 +84,6 @@
             }
         }
 
-        function clearMove() {
-            if (document.cookie == 'stage2') {
-                var clear = document.getElementById("clear");
-                clear.style.display = "block";
-                var pos = parseInt(clear.style.top);
-                pos++;
-                if (pos > window.innerHeight / 2) { pos = 0 };
-                clear.style.top = pos + "px";
-            }
-        }
-
         function gameOverMove() {
             var gameOver = document.getElementById("gameOver");
             gameOver.style.display = "block";
@@ -108,7 +93,6 @@
             gameOver.style.top = pos + "px";
 
         }
-
 
         //ウィンドウサイズ割る２の関数
         function middleInWindow() {
@@ -183,10 +167,10 @@
                     document.getElementById("hato_picture").src = 'https://hairastro.info/wp-content/uploads/2018/04/halanshandeshiA.jpg';
                 } if (life == 0) {
                     hato.remove();
-                    document.cookie = 'stage1';
                     setInterval(function () { gameOverMove() }, 500);
-                    setTimeout(function () { alert("Continue?") }, 2000);
-                    setTimeout(function () { location.reload() }, 2500);
+                    setTimeout(function () { window.confirm("Continue?") }, 1500);
+                    setTimeout(function () { location.reload() }, 1700);
+                    setTimeout(function () { document.cookie = 'stage1' }, 2000);
                 }
                 return true;
             } else { return false; }
@@ -201,19 +185,21 @@
             var Enemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
             if (Enemies.filter(n => n).length <= 0)
                 if (document.cookie == 'stage2') {
-                    document.cookie = 'stage2; max-age=0';
-                    setInterval(function () { clearMove() }, 1000);
-                    setTimeout(function () { alert("One more round ?") }, 1500);
-                    document.cookie = 'stage2; max-age=0';
-                    document.cookie = 'stage1';
-                    setTimeout(function () { location.reload(); }, 2100);
-                } else {
-                    // console.log("@@@")
-                    // console.log(document.cookie)
-                    document.cookie = 'stage1; max-age=0';
-                    document.cookie = 'stage2';
-                    setInterval(function () { nextStageMove() }, 1)
+                    window.confirm("Congratulation!!How about one more round?");
+                    // document.cookie = 'stage2; max-age=0';
+                    setTimeout(function () { document.cookie = 'stage2; max-age=0'; }, 200);
+                    // setTimeout(function () { window.confirm("Congratulation!!How about one more round?") }, 1100);
                     setTimeout(function () { location.reload(); }, 500);
+                    // setTimeout(function () { document.cookie = 'stage2; max-age=0' }, 1000);
+                    // setTimeout(function(){document.cookie = 'stage1'}, 11000;
+                } else {
+                    console.log("@@@")
+                    console.log(document.cookie)
+                    document.cookie = 'stage1; max-age=0';
+                    setInterval(function () { nextStageMove() }, 1);
+                    setTimeout(function () { document.cookie = 'stage2' }, 300);
+                    setTimeout(function () { location.reload(); }, 500);
+
                 }
         }
 
