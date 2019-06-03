@@ -16,7 +16,7 @@ Please enable Cookies <br>
 You get to the second level when you defeat all enemies.<br>
 The second one is more difficult, since the reappeared enemies shoot and move faster.<br>
 The change of the background picture also increases the difficulty.<br>
-You have three lives, no healing items, you cannot cross the border, good luck!<br>
+You have three lives,whereas your enemies only have one,good hunting!<br>
 If you defeat the five enemies on the second stage, you have beaten the game.<br>
 
 #####State<br>
