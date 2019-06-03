@@ -21,5 +21,5 @@ If you defeat the five enemies on the second stage, you have beaten the game.<br
 
 #####State<br>
 It is almost complete.<br>
-The problem with disappearing dots are however still existing.
+The problem with disappearing dots are however stillhhh existing.
 
