@@ -47,14 +47,12 @@
     </p>
 
     <script>
-        //始まりの合図
-
-        console.log(document.cookie);
+        //ステージ２の背景
         if (document.cookie == 'stage=2&life=1' || document.cookie == 'stage=2&life=2' || document.cookie == 'stage=2&life=3') { document.getElementById("background").src = 'http://xn--pckhn6qwa9bw091b5jnuo4dopq.biz/wp-content/uploads/2014/06/No.027.jpg' }
+        //クッキーに初期値を与える
         if (document.cookie != 'stage=2&life=1' && document.cookie != 'stage=2&life=2' && document.cookie != 'stage=2&life=3' &&
-            document.cookie != 'stage=1&life=1' && document.cookie != 'stage=1&life=2' && document.cookie != 'stage=1&life=3') { document.cookie = 'stage=1&life=3' }
-        console.log(document.cookie);
-
+            document.cookie != 'stage=1&life=1' && document.cookie != 'stage=1&life=2' && document.cookie != 'stage=1&life=3') { document.cookie = 'stage=1&life=3' };
+        //始めの合図
         function startMove() {
             if (document.cookie == 'stage=2&life=1' || document.cookie == 'stage=2&life=2' || document.cookie == 'stage=2&life=3') { return }
             else {
@@ -68,7 +66,7 @@
         setInterval(function () {
             startMove()
         }, 1)
-
+        //次のステージの合図
         function nextStageMove() {
             if (document.cookie == 'stage=2&life=1' || document.cookie == 'stage=2&life=2' || document.cookie == 'stage=2&life=3') {
                 var nextStage = document.getElementById("nextStage");
@@ -78,7 +76,7 @@
                 nextStage.style.right = pos + "px";
             }
         }
-
+        //ゲームオーバーの表示
         function gameOverMove() {
             var gameOver = document.getElementById("gameOver");
             gameOver.style.display = "block";
@@ -184,6 +182,7 @@
                     , 3000)
             })
         }
+        //クッキーの数値を参照してライフ数値を与える
         if (document.cookie == "stage=1&life=3") { var life = 6 };
         if (document.cookie == "stage=2&life=3") { var life = 6 };
         if (document.cookie == "stage=2&life=2") {
@@ -194,6 +193,7 @@
             var life = 2;
             document.getElementById("hato_picture").src = 'https://hairastro.info/wp-content/uploads/2018/04/halanshandeshiA.jpg';
         };
+        //ハトに敵の攻撃が当たった時のアクション
         function hato_hit(enemy, dot) {
             var hato = document.getElementById("hato_picture");
             if (hato == null) return;
@@ -241,7 +241,7 @@
                 return true;
             } else { return false; }
         }
-
+        //次のステージに移行
         function next_stage() {
             var enemy1 = document.getElementById("enemy_1_ue");
             var enemy2 = document.getElementById("enemy_2_ue");
@@ -265,7 +265,6 @@
                     arr.join("&");
                     str = arr.join("&");
                     document.cookie = str;
-                    console.log(document.cookie);
                     setInterval(function () { nextStageMove() }, 1);
                     setTimeout(function () { location.reload(); }, 500);
                 }
@@ -321,7 +320,7 @@
                 })
             }
         }
-
+        //ハトのポジション
         resetHatoPosition();
         //キーボード総裁のイベント
         document.onkeydown = function (e) {
