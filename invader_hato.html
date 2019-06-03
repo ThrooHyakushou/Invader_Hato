@@ -31,13 +31,6 @@
             src=https://4.bp.blogspot.com/-_XsuxM7-ql4/W8hDiCFTFGI/AAAAAAABPdU/PIspyn4_N6M2g2YWwJhMscKQPiPbjVYfACLcBGAs/s800/animal_cat_kowai.png
             alt="猫" style="position:absolute; left:250px; top:225px; width:75px; height:75px;">
     </div>
-    <div id="healingDrop" class="dot"
-        style="position:absolute; top:10px; left:1px; height:5px; width:5px; display:none">
-    </div>
-
-    <div id="dotHealing" class="dot"
-        style="position:absolute; top:1px; height:25px; width:25px; background-color:greenyellow; display:none;"></div>
-
     <div id="dot" class="dot"
         style="position:absolute; bottom:70px; height:5px; width:5px;background-color:black;display:none;">
     </div>
@@ -53,15 +46,17 @@
         Game Over!!!!
     </p>
 
-
     <script>
         //始まりの合図
+
         console.log(document.cookie);
-        if (document.cookie == 'stage2') { document.getElementById("background").src = 'http://xn--pckhn6qwa9bw091b5jnuo4dopq.biz/wp-content/uploads/2014/06/No.027.jpg' }
-        if (document.cookie != 'stage2') { document.cookie = 'stage1' }
+        if (document.cookie == 'stage=2&life=1' || document.cookie == 'stage=2&life=2' || document.cookie == 'stage=2&life=3') { document.getElementById("background").src = 'http://xn--pckhn6qwa9bw091b5jnuo4dopq.biz/wp-content/uploads/2014/06/No.027.jpg' }
+        if (document.cookie != 'stage=2&life=1' && document.cookie != 'stage=2&life=2' && document.cookie != 'stage=2&life=3' &&
+            document.cookie != 'stage=1&life=1' && document.cookie != 'stage=1&life=2' && document.cookie != 'stage=1&life=3') { document.cookie = 'stage=1&life=3' }
+        console.log(document.cookie);
 
         function startMove() {
-            if (document.cookie == 'stage2') { return }
+            if (document.cookie == 'stage=2&life=1' || document.cookie == 'stage=2&life=2' || document.cookie == 'stage=2&life=3') { return }
             else {
                 var start = document.getElementById("start");
                 start.style.display = "block";
@@ -75,7 +70,7 @@
         }, 1)
 
         function nextStageMove() {
-            if (document.cookie == 'stage2') {
+            if (document.cookie == 'stage=2&life=1' || document.cookie == 'stage=2&life=2' || document.cookie == 'stage=2&life=3') {
                 var nextStage = document.getElementById("nextStage");
                 nextStage.style.display = "block";
                 var pos = parseInt(nextStage.style.right);
@@ -132,7 +127,7 @@
         var enemy4 = document.getElementById("enemy_1_sita");
         var enemy5 = document.getElementById("enemy_2_sita");
         var Enemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
-        if (document.cookie == 'stage2') {
+        if (document.cookie == 'stage=2&life=1' || document.cookie == 'stage=2&life=2' || document.cookie == 'stage=2&life=3') {
             Enemies.forEach(enemy => {
                 setInterval(function () {
                     moveEnemy(enemy)
@@ -144,84 +139,6 @@
                     moveEnemy(enemy)
                 }, 10)
             })
-        }
-
-        var life = 6;
-        function hato_hit(enemy, dot) {
-            var hato = document.getElementById("hato_picture");
-            if (hato == null) return;
-            var bullet = parseInt(dot.style.top);
-            var bulletLeft = parseInt(dot.style.left);
-            var hatoTop = window.innerHeight - ((hato.clientHeight) + 20);
-            var hatoBottom = window.innerHeight - 20;
-            var hatoLeft = parseInt(hato.style.left);
-            var hatoRight = hatoLeft + hato.clientWidth;
-            if ((bullet >= hatoTop) && (bullet <= hatoBottom) && (bulletLeft >= hatoLeft) && (bulletLeft <= hatoRight)) {
-                console.log("Autsch!");
-                console.log(life);
-                dot.remove();
-                life--;
-                if (life == 4 || document.cookie == 'life4') {
-                    document.getElementById("hato_picture").src = 'http://oide43.com/wp-content/uploads/2015/10/pigeon_side-handwrittenstyle.png';
-                } if (life == 2 || document.cookie == 'life2') {
-                    document.getElementById("hato_picture").src = 'https://hairastro.info/wp-content/uploads/2018/04/halanshandeshiA.jpg';
-                } if (life == 0) {
-                    hato.remove();
-                    setInterval(function () { gameOverMove() }, 500);
-                    setTimeout(function () { window.confirm("Continue?") }, 1500);
-                    setTimeout(function () { location.reload() }, 1700);
-                    setTimeout(function () { document.cookie = 'stage1' }, 2000);
-                }
-                return true;
-            } else { return false; }
-        }
-
-        function next_stage() {
-            var enemy1 = document.getElementById("enemy_1_ue");
-            var enemy2 = document.getElementById("enemy_2_ue");
-            var enemy3 = document.getElementById("enemy_3_ue");
-            var enemy4 = document.getElementById("enemy_1_sita");
-            var enemy5 = document.getElementById("enemy_2_sita");
-            var Enemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
-            if (Enemies.filter(n => n).length <= 0)
-                if (document.cookie == 'stage2') {
-                    window.confirm("Congratulation!!How about one more round?");
-                    // document.cookie = 'stage2; max-age=0';
-                    setTimeout(function () { document.cookie = 'stage2; max-age=0'; }, 200);
-                    // setTimeout(function () { window.confirm("Congratulation!!How about one more round?") }, 1100);
-                    setTimeout(function () { location.reload(); }, 500);
-                    // setTimeout(function () { document.cookie = 'stage2; max-age=0' }, 1000);
-                    // setTimeout(function(){document.cookie = 'stage1'}, 11000;
-                } else {
-                    console.log("@@@")
-                    console.log(document.cookie)
-                    document.cookie = 'stage1; max-age=0';
-                    setInterval(function () { nextStageMove() }, 1);
-                    setTimeout(function () { document.cookie = 'stage2' }, 300);
-                    setTimeout(function () { location.reload(); }, 500);
-
-                }
-        }
-
-        // 上の敵に弾が当たった時に弾と敵が消える
-        function enemy_vanish(enemy, dot) {
-            if (enemy == null) return;
-            var bullet = parseInt(dot.style.bottom);
-            var bulletLeft = parseInt(dot.style.left);
-            const enemyTop = window.innerHeight - parseInt(enemy.style.top);
-            const enemyLeft = parseInt(enemy.style.left);
-            const enemyBottom = enemyTop - parseInt(enemy.style.height);
-            const enemyRight = enemyLeft + enemy.clientWidth;
-            if ((bullet >= enemyBottom) && (bullet <= enemyTop) && (bulletLeft >= enemyLeft) && (bulletLeft <= enemyRight)) {
-                dot.remove();
-                enemy.remove();
-                console.log("hit");
-                next_stage();
-                return true;
-            } else {
-                enemy.style.borderColor = "black";
-                return false;
-            }
         }
 
         //上の敵が弾を撃つための関数
@@ -249,11 +166,10 @@
                     clearInterval(timer_id);
                 }
             }
-            if (document.cookie == 'stage2') { timer_id = setInterval(frame, 1) }
+            if (document.cookie == 'stage=2&life=1' || document.cookie == 'stage=2&life=2' || document.cookie == 'stage=2&life=3') { timer_id = setInterval(frame, 1) }
             else { timer_id = setInterval(frame, 10); }
         }
-
-        if (document.cookie == 'stage2') {
+        if (document.cookie == 'stage=2&life=1' || document.cookie == 'stage=2&life=2' || document.cookie == 'stage=2&life=3') {
             Enemies.forEach(enemy => {
                 setInterval(
                     () =>
@@ -268,9 +184,114 @@
                     , 3000)
             })
         }
+        if (document.cookie == "stage=1&life=3") { var life = 6 };
+        if (document.cookie == "stage=2&life=3") { var life = 6 };
+        if (document.cookie == "stage=2&life=2") {
+            var life = 4;
+            document.getElementById("hato_picture").src = 'http://oide43.com/wp-content/uploads/2015/10/pigeon_side-handwrittenstyle.png';
+        };
+        if (document.cookie == "stage=2&life=1") {
+            var life = 2;
+            document.getElementById("hato_picture").src = 'https://hairastro.info/wp-content/uploads/2018/04/halanshandeshiA.jpg';
+        };
+        function hato_hit(enemy, dot) {
+            var hato = document.getElementById("hato_picture");
+            if (hato == null) return;
+            var bullet = parseInt(dot.style.top);
+            var bulletLeft = parseInt(dot.style.left);
+            var hatoTop = window.innerHeight - ((hato.clientHeight) + 20);
+            var hatoBottom = window.innerHeight - 20;
+            var hatoLeft = parseInt(hato.style.left);
+            var hatoRight = hatoLeft + hato.clientWidth;
+            if ((bullet >= hatoTop) && (bullet <= hatoBottom) && (bulletLeft >= hatoLeft) && (bulletLeft <= hatoRight)) {
+                console.log("Autsch!");
+                console.log(life);
+                dot.remove();
+                life--;
+                if (life == 4) {
+                    str = document.cookie;
+                    arr = str.split("&");
+                    key_value = arr[1].split("=");
+                    key_value[1] = "2";
+                    key_value.join("=");
+                    arr[1] = key_value.join("=");
+                    arr.join("&");
+                    str = arr.join("&");
+                    document.cookie = str;
+                    document.getElementById("hato_picture").src = 'http://oide43.com/wp-content/uploads/2015/10/pigeon_side-handwrittenstyle.png';
+                } if (life == 2) {
+                    str = document.cookie;
+                    arr = str.split("&");
+                    key_value = arr[1].split("=");
+                    key_value[1] = "1";
+                    key_value.join("=");
+                    arr[1] = key_value.join("=");
+                    arr.join("&");
+                    str = arr.join("&");
+                    document.cookie = str;
+                    document.getElementById("hato_picture").src = 'https://hairastro.info/wp-content/uploads/2018/04/halanshandeshiA.jpg';
+                } if (life == 0) {
+                    document.getElementById("hato_picture").src = 'http://gahag.net/img/201604/17s/gahag-0076883272-1.png';
+                    setInterval(function () { hato.remove() }, 300);
+                    setInterval(function () { gameOverMove() }, 500);
+                    setTimeout(function () { window.confirm("Continue?") }, 1500);
+                    setTimeout(function () { location.reload() }, 1700);
+                    setTimeout(function () { document.cookie = 'stage=1&life=3' }, 2000);
+                }
+                return true;
+            } else { return false; }
+        }
 
+        function next_stage() {
+            var enemy1 = document.getElementById("enemy_1_ue");
+            var enemy2 = document.getElementById("enemy_2_ue");
+            var enemy3 = document.getElementById("enemy_3_ue");
+            var enemy4 = document.getElementById("enemy_1_sita");
+            var enemy5 = document.getElementById("enemy_2_sita");
+            var Enemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
+            if (Enemies.filter(n => n).length <= 0) {
+                if (document.cookie == 'stage=2&life=1' || document.cookie == 'stage=2&life=2' || document.cookie == 'stage=2&life=3') {
+                    setTimeout(function () { document.getElementById("background").src = 'http://dreamaker.jp/img/materials/20140102201313_5a7dfeba.png'; }, 100);
+                    setTimeout(function () { window.confirm("Congratulation!!How about one more round?") }, 400);
+                    setTimeout(function () { document.cookie = 'stage=2; max-age=0'; }, 450);
+                    setTimeout(function () { location.reload(); }, 500);
+                } else {
+                    str = document.cookie;
+                    arr = str.split("&");
+                    key_value = arr[0].split("=");
+                    key_value[1] = "2";
+                    key_value.join("=");
+                    arr[0] = key_value.join("=");
+                    arr.join("&");
+                    str = arr.join("&");
+                    document.cookie = str;
+                    console.log(document.cookie);
+                    setInterval(function () { nextStageMove() }, 1);
+                    setTimeout(function () { location.reload(); }, 500);
+                }
+            }
+        }
 
-        resetHatoPosition();
+        // 上の敵に弾が当たった時に弾と敵が消える
+        function enemy_vanish(enemy, dot) {
+            if (enemy == null) return;
+            var bullet = parseInt(dot.style.bottom);
+            var bulletLeft = parseInt(dot.style.left);
+            const enemyTop = window.innerHeight - parseInt(enemy.style.top);
+            const enemyLeft = parseInt(enemy.style.left);
+            const enemyBottom = enemyTop - parseInt(enemy.style.height);
+            const enemyRight = enemyLeft + enemy.clientWidth;
+            if ((bullet >= enemyBottom) && (bullet <= enemyTop) && (bulletLeft >= enemyLeft) && (bulletLeft <= enemyRight)) {
+                dot.remove();
+                enemy.remove();
+                console.log("hit");
+                next_stage();
+                return true;
+            } else {
+                enemy.style.borderColor = "black";
+                return false;
+            }
+        }
 
         //弾を射つ為の関数
         function hatoShoot() {
@@ -295,12 +316,13 @@
                 Enemies.forEach(enemy => {
                     const hit = enemy_vanish(enemy, dot);
                     if (hit) {
-                        clearInterval(timer_id)
+                        clearInterval(timer_id);
                     }
                 })
             }
         }
 
+        resetHatoPosition();
         //キーボード総裁のイベント
         document.onkeydown = function (e) {
             var keyCode = false;
